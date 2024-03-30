@@ -48,7 +48,7 @@ function searchFailedSubmitedOutputs(){
 }
 
 function helpPanel(){
-        echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Use: ${endColour}${yellowColour}$0${endColour}\n"
+        echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Use: ${endColour}${yellowColour}l2Output.sh${endColour}\n"
         echo -e "\t${blueColour}-s)${endColour} ${grayColour}Search submited L2Outputs${endColour}\n"
         echo -e "\t${blueColour}-f)${endColour} ${grayColour}Failed submited L2Outputs${endColour}\n"
         echo -e "\t${blueColour}-h)${endColour} ${grayColour}Show this help panel${endColour}\n"
