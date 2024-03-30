@@ -49,7 +49,7 @@ function searchFailedSubmitedOutputs(){
 
 function helpPanel(){
         echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Use: ${endColour}${yellowColour}$0${endColour}\n"
-        echo -e "\t${blueColour}-b)${endColour} ${grayColour}Search submited L2Outputs${endColour}\n"
+        echo -e "\t${blueColour}-s)${endColour} ${grayColour}Search submited L2Outputs${endColour}\n"
         echo -e "\t${blueColour}-f)${endColour} ${grayColour}Failed submited L2Outputs${endColour}\n"
         echo -e "\t${blueColour}-h)${endColour} ${grayColour}Show this help panel${endColour}\n"
         tput cnorm
@@ -57,9 +57,9 @@ function helpPanel(){
 
 declare -i parameter_counter=0
 
-while getopts "bfh" arg; do
+while getopts "sfh" arg; do
         case $arg in
-                b) let parameter_counter+=1;;
+                s) let parameter_counter+=1;;
                 f) let parameter_counter+=2;;
                 h) ;;
         esac
