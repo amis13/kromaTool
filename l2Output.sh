@@ -47,6 +47,10 @@ function searchFailedSubmitedOutputs(){
         tput cnorm && exit 0
 }
 
+function autoUpdate(){
+	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Searching updates...${endColour}\n"
+}
+
 function helpPanel(){
         echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Use: ${endColour}${yellowColour}l2Output.sh${endColour}\n"
         echo -e "\t${blueColour}-s)${endColour} ${grayColour}Search submited L2Outputs${endColour}\n"
@@ -57,10 +61,11 @@ function helpPanel(){
 
 declare -i parameter_counter=0
 
-while getopts "sfh" arg; do
+while getopts "sfuh" arg; do
         case $arg in
                 s) let parameter_counter+=1;;
                 f) let parameter_counter+=2;;
+		u) let parameter_counter+=3;;
                 h) ;;
         esac
 done
@@ -69,6 +74,8 @@ if [ $parameter_counter -eq 1 ]; then
         searchSubmitedOutputs
 elif [ $parameter_counter -eq 2 ]; then
         searchFailedSubmitedOutputs
+elif [ $parameter_counter -eq 3 ]; then
+	autoUpdate
 else
         helpPanel
 fi
