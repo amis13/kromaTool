@@ -10,11 +10,11 @@ purpleColour="\e[0;35m\033[1m"
 turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
-blockHeight="$(docker logs -n 50 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}')"
+blockHeight="$(docker logs -n 100 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}')"
 
 if [ "$blockHeight" ]; then
 
-	docker logs -n 50 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}' > blocks.txt
+	docker logs -n 100 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}' > blocks.txt
 	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Block height: ${yellowColour}$(tail -n 1 blocks.txt)${endColour}\n"
 	rm blocks.txt
 else
