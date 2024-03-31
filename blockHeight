@@ -1,0 +1,74 @@
+#!/bin/bash
+
+#Colours
+greenColour="\e[0;32m\033[1m"
+endColour="\033[0m\e[0m"
+redColour="\e[0;31m\033[1m"
+blueColour="\e[0;34m\033[1m"
+yellowColour="\e[0;33m\033[1m"
+purpleColour="\e[0;35m\033[1m"
+turquoiseColour="\e[0;36m\033[1m"
+grayColour="\e[0;37m\033[1m"
+
+ctrl_c(){
+	echo -e "\n\n${redColour}[!] Exiting...${endColour}\n"
+	tput cnorm && exit 1
+}
+
+#Ctrl+c
+trap ctrl_c INT
+
+helpPanel(){
+	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Use:${endColour} ${yellowColour}blockHeight${endColour}\n"
+	echo -e "\t${blueColour}-b)${endColour} ${grayColour}Show your block height${endColour}\n"
+	echo -e "\t${blueColour}-s)${endColour} ${grayColour}Show if your node is synced${endColour}\n"
+	echo -e "\t${blueColour}-h)${endColour} ${grayColour}Show this help panel${endColour}\n"
+	tput cnorm
+}
+
+blockHeight(){
+	tput civis
+	blockHeight="$(docker logs -n 150 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}')"
+
+	if [ "$blockHeight" ]; then
+
+		docker logs -n 150 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}' > blocks.txt
+		echo -e "\n${greenColour}[+]${endColour} ${grayColour}Block height: ${yellowColour}$(tail -n 1 blocks.txt)${endColour}\n"
+		rm blocks.txt
+	else
+		echo -e "\n${redColour}[+] The node isn't running${endColour}\n"
+	fi
+	tput cnorm && exit 0
+}
+
+syncedNode(){
+	tput civis
+        echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking if the node is synchronized${endColour}\n"
+	docker logs --tail 10 kroma-geth &>geth.txt
+	synced="$(grep "age" geth.txt)"
+	if [ !"$synced" ]; then
+		echo -e "${greenColour}[+]${endColour} ${grayColour}Your node is${endColour} ${greenColour}synchronized${endColour}\n"
+	else
+		echo -e "${yellowColour}[!]${endColour} ${grayColour}Your node isn't ${endColour}${redColour}synchronized${endColour}\n"
+	fi
+	rm geth.txt
+	tput cnorm && exit 0
+}
+
+declare -i parameter_counter=0
+
+while getopts "bsh" arg; do
+	case $arg in
+		b) let parameter_counter+=1;;
+		s) let parameter_counter+=2;;
+		h);;
+	esac
+done
+
+if [ $parameter_counter -eq 1 ]; then
+	blockHeight
+elif [ $parameter_counter -eq 2 ]; then
+	syncedNode
+else
+	helpPanel
+fi
