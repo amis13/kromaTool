@@ -1,25 +1,34 @@
-# l2Output.sh
+# Tool
 
-Bash tool for Kroma, easy to use. To see if there are successfull or failed transactions.
+Bash tool for Kroma, easy to use.
 
 Clone the repo and go to `kromaTool`:
 
 ```bash
 git clone https://github.com/amis13/kromaTool.git && cd kromaTool
 ```
-Grants execution permits:
-
-```bash
-chmod +x l2Output.sh
-```
 
 Copy it to the binary path to call it from anywhere:
 
 ```bash
-sudo cp l2Output.sh /usr/bin/
+sudo cp l2Output.sh blockHeight.sh /usr/bin/
 ```
 
-## Use
+# blockHeight.sh
+
+To see your block height:
+
+```bash
+blockHeight.sh
+```
+
+![blocks](https://github.com/amis13/kromaTool/assets/119992979/b8eeb174-be52-4abf-8b88-b3b66dca3714)
+
+
+# l2Output.sh
+
+To see if there are successfull or failed transactions.
+## 
 
 To view the help panel use the tool without parameters or use the `-h` flag:
 
