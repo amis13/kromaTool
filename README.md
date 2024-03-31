@@ -40,7 +40,7 @@ blockHeight -s
 
 # l2Output
 
-To see if there are successfull or failed transactions.
+Tool for validators, to see if there are successful or failed transactions.
 
 ## Use
 
