@@ -44,6 +44,7 @@ blockHeight(){
 syncedNode(){
 	tput civis
         echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking if the node is synced${endColour}\n"
+	sleep 1
 	docker logs --tail 10 kroma-geth &>geth.txt
 	synced="$(grep "age" geth.txt)"
 	if [ ! "$synced" ]; then
