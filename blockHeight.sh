@@ -10,7 +10,7 @@ purpleColour="\e[0;35m\033[1m"
 turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
-blockHeight="$(docker logs -n 10 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}')"
+blockHeight="$(docker logs -n 50 kroma-node | awk '/l2_engineSyncTarget/ {print}' | sed 's/ \+/\n/g' | awk '/^l2_engineSyncTarget/ {print}' | tr -s ':' ' ' | awk 'NF{print $NF}')"
 
 if [ "$blockHeight" ]; then
 
