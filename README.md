@@ -8,10 +8,10 @@ Clone the repo and move to kromaTool:
 git clone https://github.com/amis13/kromaTool.git && cd kromaTool
 ```
 
-Creates a symbolic link to the system binary path:
+Install the tools:
 
 ```bash
-ls tools | xargs -s -t /usr/bin/
+./installer.sh
 ```
 
 # blockHeight
