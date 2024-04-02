@@ -18,7 +18,7 @@ ctrl_c(){
 # Ctrl+C
 trap ctrl_c INT
 
-path="$(find ~ -name kromaTool)"
+path="$(find ~ -type d -name kromaTool)"
 
 updateTools(){
 	tput civis
