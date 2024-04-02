@@ -30,13 +30,13 @@ updateTools(){
 	checker="$(grep "Updating" checker.txt)"
 
 	if [ "$checker" ]; then
-		sudo cp -f "$path/tools/*" /usr/bin/
+		ls tools | xargs ln -sf -t /usr/bin/
 		echo -e "${greenColour}[+]${endColour} ${grayColour}Update ${greenColour}successfully${endColour} ${grayColour}completed!${endColour}\n"
 	else
 		echo -e "${greenColour}[+]${endColour} ${grayColour}$(cat checker.txt)${endColour}\n"
 	fi
 	rm checker.txt
-	tput cnorm
+	tput cnorm && exit 0
 }
 
 if [ "$path" ]; then
