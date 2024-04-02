@@ -30,7 +30,12 @@ updateTools(){
 	checker="$(grep "Updating" checker.txt)"
 
 	if [ "$checker" ]; then
-		ls tools | xargs ln -sf -t /usr/bin/
+		for file in tools/*; do
+			route="$(realpath "$file")"
+
+			chmod +x "$route"
+			ln -sf "$route" -t /usr/bin/
+		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}Update ${greenColour}successfully${endColour} ${grayColour}completed!${endColour}\n"
 	else
 		echo -e "${greenColour}[+]${endColour} ${grayColour}$(cat checker.txt)${endColour}\n"
@@ -42,5 +47,6 @@ updateTools(){
 if [ "$path" ]; then
 	updateTools
 else
-	cd ~ && updateTools
+	search_path="$(find / -type d -name kromaTool)"
+	cd "$search_path" && updateTools
 fi
