@@ -2,16 +2,16 @@
 
 Bash tool for Kroma, easy to use.
 
-Clone the repo and go to `kromaTool`:
+Clone the repo:
 
 ```bash
-git clone https://github.com/amis13/kromaTool.git && cd kromaTool
+git clone https://github.com/amis13/kromaTool.git
 ```
 
 Copy it to the binary path to call it from anywhere:
 
 ```bash
-sudo cp l2Output blockHeight /usr/bin/
+sudo cp -r kromaTool /usr/bin/
 ```
 
 # blockHeight
