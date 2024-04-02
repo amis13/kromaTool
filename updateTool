@@ -30,7 +30,7 @@ updateTools(){
 	checker="$(grep "Updating" checker.txt)"
 
 	if [ "$checker" ]; then
-		sudo cp -rf $path /usr/bin/ || echo -e "${redColour}[!] Error: Unable to copy${endColour} ${yellowColour}$path${endColour} ${redColour}to${endColour} ${yellowColour}/usr/bin/${endColour}\n${yellowColour}[!] Please use this tool with root user${endColour}\n"; return 1;
+		sudo cp -rf $path /usr/bin/
 		echo -e "${greenColour}[+]${endColour} ${grayColour}Update ${greenColour}successfully${endColour} ${grayColour}completed!${endColour}\n"
 	else
 		echo -e "${greenColour}[+]${endColour} ${grayColour}$(cat checker.txt)${endColour}\n"
