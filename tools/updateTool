@@ -23,15 +23,16 @@ path="$(find ~ -type d -name kromaTool)"
 updateTools(){
 	tput civis
 	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking for pending updates...${endColour}\n"
+	echo -e "\n${yellowColour}[!]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
 
 	cd "$path"
-	git pull > checker.txt 2>/dev/null
+	git pull > checker.txt 2>/dev/null && sleep 5
 
 	checker="$(grep "Updating" checker.txt)"
 
 	if [ "$checker" ]; then
 		for file in tools/*; do
-			route="$(realpath "$file")"
+			route="$(echo "$file" | awk -F '/' '{print $2}' | xargs realpath)"
 
 			chmod +x "$route"
 			ln -sf "$route" -t /usr/bin/

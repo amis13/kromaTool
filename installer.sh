@@ -25,7 +25,7 @@ KROMA_URL="https://github.com/kroma-network/kroma-up.git"
 
 installer(){
 	tput civis
-	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n"
+	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n"
 	echo -e "${yellowColour}[+]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
 
 	(cd "$path" && cd ..) || (cd "$absolute_path" && cd ..)
@@ -33,13 +33,12 @@ installer(){
 	checker="$(find / -type d -name kromaTool 2>/dev/null)"
 
 	if [ ! "$checker" ]; then
-		git clone "$TOOLS_URL" &>/dev/null && cd kromaTool
+		git clone "$TOOLS_URL" &>/dev/null && sleep 5 && cd kromaTool/
 
 		for file in tools/*; do
-			route="$(realpath "$file")"
-
+			route="$(echo $file | awk -F '/' '{print $2}' | xargs realpath)"
 			chmod +x "$route"
-			ln -s "$route" -t /usr/bin/
+			ln -s "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
 	else
