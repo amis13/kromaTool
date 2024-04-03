@@ -37,8 +37,8 @@ installer(){
 		sleep 2
 		cd kromaTool
 
-		for file in ./tools/*; do
-			the_file="$(echo "$file" | awk -F '/' '{print $4}')"
+		for file in tools/; do
+			the_file="$(echo "$file" | awk -F '/' '{print $2}')"
 			route="$(realpath "$the_file")"
 
 			chmod +x "$the_file"
