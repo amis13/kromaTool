@@ -33,13 +33,15 @@ installer(){
 	checker="$(find / -type d -name kromaTool 2>/dev/null)"
 
 	if [ ! "$checker" ]; then
-		(git clone $TOOLS_URL &>/dev/null) && sleep 3 && cd kromaTool/
+		git clone $TOOLS_URL &>/dev/null
+		sleep 3
+		cd kromaTool/
 
 		for file in tools/*; do
 			route="$(echo $file | awk -F '/' '{print $2}' | xargs realpath)"
 			the_file="$(echo $file | awk -F '/' '{print $2}')"
 			chmod +x "$the_file"
-			ln -s "$route" "/usr/bin/$the_file"
+			ln -s "$route" -t "/usr/bin/$the_file"
 		done
 		echo "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
 	else
