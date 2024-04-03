@@ -38,7 +38,7 @@ installer(){
 		for file in tools/*; do
 			route="$(echo $file | awk -F '/' '{print $2}' | xargs realpath)"
 			the_file="$(echo $file | awk -F '/' '{print $2}')"
-			chmod +x "$route"
+			chmod +x "$the_file"
 			ln -s "$route" /usr/bin/
 		done
 		echo "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
