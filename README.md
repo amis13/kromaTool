@@ -2,6 +2,16 @@
 
 Bash tool for Kroma, easy to use.
 
+# Auto-Install
+
+Just run the following command:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSfL https://github.com/amis13/kromaTool/releases/download/Installer-Release/installer.sh | sudo sh
+```
+
+# Manual installation
+
 Clone the repo and move to kromaTool:
 
 ```bash
@@ -60,4 +70,11 @@ To see unsuccessful transactions:
 
 ```bash
 l2Output -f
+```
+# updateTool
+
+To update all tools, you only need to run:
+
+```bash
+updateTool
 ```
