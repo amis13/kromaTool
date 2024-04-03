@@ -18,15 +18,14 @@ ctrl_c(){
 #Ctrl+C
 trap ctrl_c INT
 
-path="$(find ~ -type d -name kroma-up | awk 'NR==1{print $0}')"
+tput civis
+echo -e "\n${greenColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n"
+echo -e "${yellowColour}[+]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
+
 absolute_path="$(find / -type d -name kroma-up 2>/dev/null | awk 'NR==1{print $0}')"
 KROMA_URL="https://github.com/kroma-network/kroma-up.git"
 
 installer(){
-	tput civis
-	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n"
-	echo -e "${yellowColour}[+]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
-
 	checker_binary="$(which l2Output || which blockHeight || which updateKromaTools)"
 
 	if [ ! "$checker_binary" ]; then
@@ -58,11 +57,10 @@ installer(){
 	tput cnorm
 }
 
-if [ "$path" ] || [ "$absolute_path" ]; then
+if [ "$absolute_path" ]; then
 	installer
 else
-	tput civis
-	echo -e "\n${yellowColour}[!] WARN:${endColour} ${grayColour}This is a tool exclusively for kroma validators and nodes${endColour}\n"
+	echo -e "${yellowColour}[!] WARN:${endColour} ${grayColour}This is a tool exclusively for kroma validators and nodes${endColour}\n"
 
 	while true; do
 		echo -ne "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && read y_n
