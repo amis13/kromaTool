@@ -47,6 +47,7 @@ installer(){
 				updateKromaTools
 				tput cnorm && exit 0
 			elif [ "$yes_no" == "n" ]; then
+				echo -e "\n${redColour}[!] Aborting updates...${endColour}\n"
 				tput cnorm && exit 0
 			else
 				echo -e "\n${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
@@ -67,7 +68,7 @@ else
 
 		if [ "$y_n" == "y" ]; then
 			cd "$HOME" && git clone "$KROMA_URL" &>/dev/null
-			echo -e "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
+			echo -e "\n${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
 
 			kromaTools="$(find / -type d -name kromaTool 2>/dev/null)"
 
