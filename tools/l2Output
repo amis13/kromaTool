@@ -30,7 +30,7 @@ function searchSubmitedOutputs(){
         else
                 echo -e "${redColour}[+] There aren't submited L2Outputs${endColour}\n"
         fi
-        tput cnorm && exit 0
+        tput cnorm
 }
 
 function searchFailedSubmitedOutputs(){
@@ -44,7 +44,7 @@ function searchFailedSubmitedOutputs(){
         else
                 echo -e "${redColour}[+] There aren't unsuccessful submited L2Outputs${endColour}\n"
         fi
-        tput cnorm && exit 0
+        tput cnorm
 }
 
 function helpPanel(){
@@ -55,12 +55,18 @@ function helpPanel(){
         tput cnorm
 }
 
+function searchAllSubmitedOutputs(){
+	searchSubmitedOutputs
+	searchFailedSubmitedOutputs
+}
+
 declare -i parameter_counter=0
 
-while getopts "sfh" arg; do
+while getopts "sfah" arg; do
         case $arg in
                 s) let parameter_counter+=1;;
                 f) let parameter_counter+=2;;
+		a) let parameter_counter+=3;;
                 h) ;;
         esac
 done
@@ -69,6 +75,8 @@ if [ $parameter_counter -eq 1 ]; then
         searchSubmitedOutputs
 elif [ $parameter_counter -eq 2 ]; then
         searchFailedSubmitedOutputs
+elif [ $parameter_counter -eq 3 ]; then
+	searchAllSubmitedOutputs
 else
         helpPanel
 fi
