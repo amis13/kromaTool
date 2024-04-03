@@ -33,15 +33,16 @@ installer(){
 	checker="$(find / -type d -name kromaTool 2>/dev/null)"
 
 	if [ ! "$checker" ]; then
-		git clone $TOOLS_URL &>/dev/null
-		sleep 3
+		git clone $TOOLS_URL >/dev/null 2>&1
+		sleep 2
 		cd kromaTool/
 
 		for file in tools/*; do
-			route="$(echo $file | awk -F '/' '{print $2}' | xargs realpath)"
-			the_file="$(echo $file | awk -F '/' '{print $2}')"
+			the_file="$(echo "$file" | awk -F '/' '{print $2}')"
+			route="$(realpath "$the_file")"
+
 			chmod +x "$the_file"
-			ln -s "$route" -t "/usr/bin/$the_file"
+			ln -s "$route" -t /usr/bin/
 		done
 		echo "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
 	else
@@ -67,7 +68,7 @@ else
 	echo "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && read y_n
 
 	if [ "$y_n" == "y" ]; then
-		cd "$HOME" && git clone $KROMA_URL &>/dev/null
+		cd "$HOME" && git clone $KROMA_URL >/dev/null 2>1&
 		echo "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
 		installer
 		echo "${yellowColour}[!]${endColour} ${grayColour}Check the documentation on:${endColour} ${blueColour}https://docs.kroma.network/developers/running-nodes-on-kroma${endColour} ${grayColour}to be able to use the tools${endColour}\n"
