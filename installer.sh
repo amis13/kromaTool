@@ -35,6 +35,7 @@ installer(){
 	if [ ! "$checker" ]; then
 		git clone $TOOLS_URL >/dev/null 2>&1
 		sleep 2
+		cd kromaTool
 
 		for file in ./tools/*; do
 			the_file="$(echo "$file" | awk -F '/' '{print $4}')"
