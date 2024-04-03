@@ -71,6 +71,13 @@ To see unsuccessful transactions:
 ```bash
 l2Output -f
 ```
+
+To see all transactions:
+
+```bash
+l2Output -a
+```
+
 # updateKromaTools
 
 To update all tools, you only need to run:
