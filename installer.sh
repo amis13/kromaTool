@@ -25,8 +25,8 @@ KROMA_URL="https://github.com/kroma-network/kroma-up.git"
 
 installer(){
 	tput civis
-	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n"
-	echo -e "${yellowColour}[+]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
+	(echo -e "\n${greenColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n")
+	(echo -e "${yellowColour}[+]${endColour} ${grayColour}This may take a few minutes${endColour}\n")
 
 	(cd "$path" && cd ..) || (cd "$absolute_path" && cd ..)
 
