@@ -37,7 +37,7 @@ updateTools(){
 			route="$(realpath $file)"
 
 			chmod +x "$route"
-			ln -sf "$route" /usr/bin/
+			ln -s -f "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}Update ${greenColour}successfully${endColour} ${grayColour}completed!${endColour}\n"
 	else
