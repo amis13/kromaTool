@@ -18,26 +18,27 @@ ctrl_c(){
 # Ctrl+C
 trap ctrl_c INT
 
-path="$(find ~ -type d -name kromaTool)"
+search_path="$(find / -type d -name kromaTool 2>/dev/null | awk 'NR==1{print $0}')"
 
 updateTools(){
 	tput civis
 	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking for pending updates...${endColour}\n"
 	echo -e "${yellowColour}[!]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
 
-	cd "$path"
-	git pull > checker.txt 2>/dev/null && sleep 3
+
+	(cd "$path" 2>/dev/null) || (cd "$search_path")
+
+	git pull > checker.txt 2>/dev/null && sleep 2
 
 	checker="$(grep "Updating" checker.txt)"
 
 	if [ "$checker" ]; then
-		for file in tools/*; do
+		for file in $search_path/tools/*; do
 
-			route="$(echo "$file" | awk -F '/' '{print $2}' | xargs realpath)"
-			cfile="$(echo "$file" | awk -F '/' '{print $2}')"
+			route="$(realpath $file)"
 
-			chmod +x "$cfile"
-			ln -sf "$route" -t /usr/bin/
+			chmod +x "$route"
+			ln -sf "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}Update ${greenColour}successfully${endColour} ${grayColour}completed!${endColour}\n"
 	else
@@ -47,9 +48,9 @@ updateTools(){
 	tput cnorm && exit 0
 }
 
-if [ "$path" ]; then
+if [ "$search_path" ]; then
 	updateTools
 else
-	search_path="$(find / -type d -name kromaTool 2>/dev/null)"
-	cd "$search_path" && updateTools
+	echo -e "\n\n${redColour}[!] ERROR: Aborting update...${endColour}\n"
+	echo -e "${redColour}[!] Cannot find kromaTool folder${endColour}\n"
 fi
