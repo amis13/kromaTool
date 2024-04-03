@@ -27,35 +27,35 @@ installer(){
 	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Starting automatic installation of the tools${endColour}\n"
 	echo -e "${yellowColour}[+]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
 
-	(cd "$path" 2>/dev/null && cd .. 2>/dev/null) || (cd "$absolute_path" && cd ..)
+	checker_binary="$(which l2Output || which blockHeight || which updateKromaTools)"
 
-	checker="$(find ~ -type d -name kromaTool 2>/dev/null | awk 'NR==1{print $0}')"
-	checker_absolute="$(find / -type d -name kromaTool 2>/dev/null | awk 'NR==1{print $0}')"
-
-	if [ "$checker" ] || [ "$checker_absolute" ]; then
-		(cd "$checker" 2>/dev/null || cd "$checker_absolute")
+	if [ ! "$checker_binary" ]; then
 
 		for file in tools/*; do
-			the_file="$(echo "$file" | awk -F '/' '{print $2}')"
-			route="$(realpath "$the_file")"
+			route="$(realpath "$file")"
 
-			chmod +x "$the_file"
+			chmod +x "$route"
 			ln -s "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
+		echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation of the tools on:${endColour} ${blueColour}https://github.com/amis13/kromaTool${endColour}${endColour}\n"
 	else
-		echo -ne "${yellowColour}[!]${endColour} ${grayColour}You already have kroma tools installed, do you want to update them? (y/n) --> ${endColour}" && read yes_no
+		while true; do
 
-		if [ "$yes_no" == "y" ]; then
-			updateTool
-		elif [ "$yes_no" == "n" ]; then
-			tput cnorm && exit 0
-		else
-			echo -e "${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
-			tput cnorm && exit 1
-		fi
+			echo -ne "${yellowColour}[!]${endColour} ${grayColour}You already have kroma tools installed, do you want to update them? (y/n) --> ${endColour}" && read yes_no
+
+			if [ "$yes_no" == "y" ]; then
+				updateKromaTools
+				tput cnorm && exit 0
+			elif [ "$yes_no" == "n" ]; then
+				tput cnorm && exit 0
+			else
+				echo -e "\n${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
+				sleep 1
+			fi
+		done
 	fi
-	tput cnorm && exit 0
+	tput cnorm
 }
 
 if [ "$path" ] || [ "$absolute_path" ]; then
@@ -63,19 +63,25 @@ if [ "$path" ] || [ "$absolute_path" ]; then
 else
 	tput civis
 	echo -e "\n${yellowColour}[!] WARN:${endColour} ${grayColour}This is a tool exclusively for kroma validators and nodes${endColour}\n"
-	echo -ne "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && read y_n
 
-	if [ "$y_n" == "y" ]; then
-		cd "$HOME" && git clone $KROMA_URL &>/dev/null
-		echo -e "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
+	while true; do
+		echo -ne "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && read y_n
 
-		installer
-		echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation on:${endColour} ${blueColour}https://docs.kroma.network/developers/running-nodes-on-kroma${endColour} ${grayColour}to be able to use the tools${endColour}\n"
-		echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation of the tools on:${endColour} ${blueColour}https://github.com/amis13/kromaTool${endColour}${endColour}\n"
-	elif [ "$y_n" == "n" ]; then
-		tput cnorm && exit 0
-	else
-		echo -e "${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
-		tput cnorm && exit 1
-	fi
+		if [ "$y_n" == "y" ]; then
+			cd "$HOME" && git clone "$KROMA_URL" &>/dev/null
+			echo -e "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
+
+			kromaTools="$(find / -type d -name kromaTool 2>/dev/null)"
+
+			cd "$kromaTools" && installer
+			echo -e "${yellowColour}[!]${endColour} ${grayColour}kroma-up has been cloned in:${endColour} ${yellowColour}$HOME/kroma-up${endColour}\n"
+			echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation on:${endColour} ${blueColour}https://docs.kroma.network/developers/running-nodes-on-kroma${endColour} ${grayColour}to be able to use the tools${endColour}\n"
+			tput cnorm && exit 0
+		elif [ "$y_n" == "n" ]; then
+			tput cnorm && exit 0
+		else
+			echo -e "${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
+			sleep 1
+		fi
+	done
 fi
