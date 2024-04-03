@@ -33,7 +33,7 @@ installer(){
 	checker="$(find / -type d -name kromaTool 2>/dev/null)"
 
 	if [ ! "$checker" ]; then
-		git clone $TOOLS_URL &>/dev/null && sleep 3 && cd kromaTool/
+		(git clone $TOOLS_URL &>/dev/null) && sleep 3 && cd kromaTool/
 
 		for file in tools/*; do
 			route="$(echo $file | awk -F '/' '{print $2}' | xargs realpath)"
