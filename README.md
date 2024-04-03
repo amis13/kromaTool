@@ -71,10 +71,10 @@ To see unsuccessful transactions:
 ```bash
 l2Output -f
 ```
-# updateTool
+# updateKromaTools
 
 To update all tools, you only need to run:
 
 ```bash
-updateTool
+updateKromaTools
 ```
