@@ -47,6 +47,6 @@ updateTools(){
 if [ "$path" ]; then
 	updateTools
 else
-	search_path="$(find / -type d -name kromaTool)"
+	search_path="$(find / -type d -name kromaTool 2>/dev/null)"
 	cd "$search_path" && updateTools
 fi
