@@ -45,7 +45,7 @@ updateTools(){
 		echo -e "${greenColour}[+]${endColour} ${grayColour}$(cat checker.txt)${endColour}\n"
 	fi
 	rm checker.txt
-	tput cnorm && exit 0
+	tput cnorm
 }
 
 if [ "$search_path" ]; then
@@ -53,4 +53,5 @@ if [ "$search_path" ]; then
 else
 	echo -e "\n\n${redColour}[!] ERROR: Aborting update...${endColour}\n"
 	echo -e "${redColour}[!] Cannot find kromaTool folder${endColour}\n"
+	tput cnorm && exit 1
 fi

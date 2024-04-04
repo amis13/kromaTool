@@ -37,7 +37,7 @@ installer(){
 			ln -s "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
-		echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation of the tools on:${endColour} ${blueColour}https://github.com/amis13/kromaTool/blob/main/README.md${endColour}${endColour}\n"
+		echo -e "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned in:${endColour} ${yellowColour}$HOME/kromaTool${endColour}\n"
 	else
 		while true; do
 
@@ -45,16 +45,18 @@ installer(){
 
 			if [ "$yes_no" == "y" ]; then
 				updateKromaTools
-				tput cnorm && exit 0
+				break
 			elif [ "$yes_no" == "n" ]; then
-				echo -e "\n${redColour}[!] Aborting updates...${endColour}\n"
-				tput cnorm && exit 0
+				echo -e "\n${redColour}[!] Aborting update...${endColour}\n"
+				break
 			else
 				echo -e "\n${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
 				sleep 1
 			fi
 		done
 	fi
+
+	echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation of the tools on:${endColour} ${blueColour}https://github.com/amis13/kromaTool/blob/main/README.md${endColour}${endColour}\n"
 	tput cnorm
 }
 
@@ -66,14 +68,14 @@ else
 	while true; do
 		echo -ne "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && tput cnorm && read y_n && tput civis
 		if [ "$y_n" == "y" ]; then
+			echo -e "\n${greenColour}[+]${endColour} ${grayColour}The kroma-up repository is going to be downloaded in${endColour} ${yellowColour}$HOME${endColour}\n"
 			cd "$HOME" && git clone "$KROMA_URL" &>/dev/null
-			echo -e "\n${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
+			echo -e "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned in:${endColour} ${yellowColour}$HOME/kroma-up${endColour}\n"
+			echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation on:${endColour} ${blueColour}https://docs.kroma.network/developers/running-nodes-on-kroma${endColour} ${grayColour}to be able to use the tools${endColour}\n"
 
 			kromaTools="$(find / -type d -name kromaTool 2>/dev/null)"
 
 			cd "$kromaTools" && installer
-			echo -e "${yellowColour}[!]${endColour} ${grayColour}kroma-up has been cloned in:${endColour} ${yellowColour}$HOME/kroma-up${endColour}\n"
-			echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation on:${endColour} ${blueColour}https://docs.kroma.network/developers/running-nodes-on-kroma${endColour} ${grayColour}to be able to use the tools${endColour}\n"
 			tput cnorm && exit 0
 		elif [ "$y_n" == "n" ]; then
 			echo -e "\n${redColour}[!] Aborting installer...${endColour}\n"
