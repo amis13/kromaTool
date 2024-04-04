@@ -47,7 +47,7 @@ syncedNode(){
 	tput civis
         echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking if the node is synced${endColour}\n"
 	sleep 1
-	docker logs --tail 20 kroma-geth &>geth.txt
+	docker logs --tail 30 kroma-geth &>geth.txt
 	synced="$(grep "age" geth.txt)"
 	if [ ! "$synced" ]; then
 		echo -e "${greenColour}[+]${endColour} ${grayColour}Your node is${endColour} ${greenColour}synced${endColour}${grayColour}!${endColour}\n"
