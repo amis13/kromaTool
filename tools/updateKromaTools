@@ -18,12 +18,13 @@ ctrl_c(){
 # Ctrl+C
 trap ctrl_c INT
 
+tput civis
+echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking for pending updates...${endColour}\n"
+echo -e "${yellowColour}[!]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
+
 search_path="$(find / -type d -name kromaTool 2>/dev/null | awk 'NR==1{print $0}')"
 
 updateTools(){
-	tput civis
-	echo -e "\n${greenColour}[+]${endColour} ${grayColour}Checking for pending updates...${endColour}\n"
-	echo -e "${yellowColour}[!]${endColour} ${grayColour}This may take a few minutes${endColour}\n"
 
 	cd "$search_path"
 
