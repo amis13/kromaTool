@@ -1,6 +1,11 @@
 # Tool
 
 Bash tool for Kroma, easy to use. Use the installer as root user.
+
+```bash
+sudo su
+```
+
 # Auto-Install
 
 Just run the following command:
