@@ -77,9 +77,10 @@ else
 			echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation on:${endColour} ${blueColour}https://docs.kroma.network/developers/running-nodes-on-kroma${endColour} ${grayColour}to be able to use the tools${endColour}\n"
 			tput cnorm && exit 0
 		elif [ "$y_n" == "n" ]; then
+			echo -e "\n${redColour}[!] Aborting installer...${endColour}\n"
 			tput cnorm && exit 0
 		else
-			echo -e "${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
+			echo -e "\n${redColour}[!] ERROR: You have entered an invalid character, use (y/n)${endColour}\n"
 			sleep 1
 		fi
 	done
