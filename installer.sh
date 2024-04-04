@@ -37,7 +37,6 @@ installer(){
 			ln -s "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
-		echo -e "${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned in:${endColour} ${yellowColour}$HOME/kromaTool${endColour}\n"
 	else
 		while true; do
 
