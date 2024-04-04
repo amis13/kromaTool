@@ -37,11 +37,11 @@ installer(){
 			ln -s "$route" /usr/bin/
 		done
 		echo -e "${greenColour}[+]${endColour} ${grayColour}The automatic installation of the tools has been completed${endColour} ${greenColour}successfully${endColour}${grayColour}!${endColour}\n"
-		echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation of the tools on:${endColour} ${blueColour}https://github.com/amis13/kromaTool${endColour}${endColour}\n"
+		echo -e "${yellowColour}[!]${endColour} ${grayColour}Check the documentation of the tools on:${endColour} ${blueColour}https://github.com/amis13/kromaTool/blob/main/README.md${endColour}${endColour}\n"
 	else
 		while true; do
 
-			echo -ne "${yellowColour}[!]${endColour} ${grayColour}You already have kroma tools installed, do you want to update them? (y/n) --> ${endColour}" && read yes_no
+			echo -ne "${yellowColour}[!]${endColour} ${grayColour}You already have kroma tools installed, do you want to update them? (y/n) --> ${endColour}" && tput cnorm && read yes_no && tput civis
 
 			if [ "$yes_no" == "y" ]; then
 				updateKromaTools
@@ -64,8 +64,7 @@ else
 	echo -e "${yellowColour}[!] WARN:${endColour} ${grayColour}This is a tool exclusively for kroma validators and nodes${endColour}\n"
 
 	while true; do
-		echo -ne "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && read y_n
-
+		echo -ne "${yellowColour}[!]${endColour} ${grayColour}Do you want to install kroma-up and tools? (y/n) --> ${endColour}" && tput cnorm && read y_n && tput civis
 		if [ "$y_n" == "y" ]; then
 			cd "$HOME" && git clone "$KROMA_URL" &>/dev/null
 			echo -e "\n${greenColour}[+]${endColour} ${grayColour}The repository has been ${greenColour}successfully${endColour} ${grayColour}cloned!${endColour}\n"
