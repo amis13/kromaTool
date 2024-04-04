@@ -1,7 +1,6 @@
 # Tool
 
-Bash tool for Kroma, easy to use.
-
+Bash tool for Kroma, easy to use. Use the installer as root user.
 # Auto-Install
 
 Just run the following command:
