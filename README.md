@@ -2,7 +2,7 @@
 
 Bash tool for Kroma, easy to use. If you have not downloaded the kroma-up repository, it will be automatically downloaded to your $HOME directory.
 
-Use the installer as root user:
+Use the installer and the Auto-Installer as root user:
 
 ```bash
 sudo su
